@@ -24,7 +24,7 @@ const app = express();
 // Middleware to handle CORS
 app.use(
   cors({
-    origin: "https://ace-bot-ai.vercel.app/",
+    origin: "https://ace-bot-ai.vercel.app",
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
