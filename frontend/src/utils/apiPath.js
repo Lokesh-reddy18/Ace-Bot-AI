@@ -1,4 +1,4 @@
-export const BASIC_URL = "http://localhost:3000"; // Default backend server URL
+export const BASIC_URL = "https://ace-bot-ai.onrender.com"; // Default backend server URL
 
 export const API_PATHS = {
   AUTH: {
