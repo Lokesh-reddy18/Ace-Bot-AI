@@ -60,7 +60,7 @@ app.listen(PORT, () => console.log(`Server started on PORT ${PORT}`));
 import cron from "node-cron";
 import fetch from "node-fetch";
 
-const SELF_URL = "http://localhost:3000"; 
+const SELF_URL = "https://ace-bot-ai.onrender.com"; 
 
 cron.schedule("*/14 * * * *", async () => {
   try {
