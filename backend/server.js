@@ -24,17 +24,21 @@ const app = express();
 // Middleware to handle CORS
 app.use(
   cors({
-    origin: "https://ace-bot-ai.vercel.app",
+    origin: "*",
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
-
 connectDB();
 
 // Middleware
 app.use(express.json());
+
+// Health check route for self-ping
+app.get("/", (req, res) => {
+  res.status(200).send("OK");
+});
 
 // Routes
 app.use("/api/auth", authRoutes);
@@ -51,3 +55,18 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 // Start server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server started on PORT ${PORT}`));
+
+// --- Self-ping cron job ---
+import cron from "node-cron";
+import fetch from "node-fetch";
+
+const SELF_URL = "http://localhost:3000"; 
+
+cron.schedule("*/14 * * * *", async () => {
+  try {
+    const res = await fetch(SELF_URL);
+    console.log(`Self-pinged at ${new Date().toISOString()} - Status: ${res.status}`);
+  } catch (err) {
+    console.error("Self-ping failed:", err);
+  }
+});
